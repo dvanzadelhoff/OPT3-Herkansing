@@ -40,5 +40,4 @@ public class Menu
         scanner.nextLine();
     }
 
-    public static void
 }
