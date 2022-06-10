@@ -62,6 +62,7 @@ public class StaffMenu
             case "2" -> {
                 System.out.println("Geef de vliegtuig een naam:");
                 String naam = scanner.nextLine();
+                /*
                 System.out.println("Geef het aantal BabyStoelen aan:");
                 int BabyStoelen = scanner.nextInt();
                 System.out.println("Geef het aantal ComfortStoelen aan:");
@@ -70,7 +71,8 @@ public class StaffMenu
                 int EconomyStoelen = scanner.nextInt();
                 System.out.println("Hoeveel Stoelen zitten er in een rij? :");
                 int RijAantal = scanner.nextInt();
-                Main.Bouwer.maakCustomVliegtuig(naam, BabyStoelen, ComfortStoelen, EconomyStoelen, RijAantal);
+                */
+                Main.Bouwer.maakCustomVliegtuig(naam /*, BabyStoelen, ComfortStoelen, EconomyStoelen, RijAantal */);
                 System.out.println("Gelukt!");
             }
         }

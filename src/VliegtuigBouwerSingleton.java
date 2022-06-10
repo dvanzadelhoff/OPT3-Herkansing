@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class VliegtuigBouwerSingleton
 {
@@ -30,8 +31,19 @@ public class VliegtuigBouwerSingleton
         return v;
     }
 
-    public void maakCustomVliegtuig(String naam, int aantalBabyStoelen, int aantalComfortStoelen, int aantalEconomyStoelen, int aantalStoelenInRij)
+    public void maakCustomVliegtuig(String naam /*, int aantalBabyStoelen, int aantalComfortStoelen, int aantalEconomyStoelen, int aantalStoelenInRij */)
     {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Geef het aantal BabyStoelen aan:");
+        int aantalBabyStoelen = scanner.nextInt();
+        System.out.println("Geef het aantal ComfortStoelen aan:");
+        int aantalComfortStoelen = scanner.nextInt();
+        System.out.println("Geef het aantal EconomyStoelen aan:");
+        int aantalEconomyStoelen = scanner.nextInt();
+        System.out.println("Hoeveel Stoelen zitten er in een rij? :");
+        int aantalStoelenInRij = scanner.nextInt();
+
         Vliegtuig v = bouwLegeVliegtuig(naam);
 
         int aantalStoelen = aantalBabyStoelen + aantalComfortStoelen + aantalEconomyStoelen;

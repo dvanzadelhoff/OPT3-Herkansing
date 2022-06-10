@@ -1,22 +1,24 @@
 public class Stoel
 {
     private Vliegtuig vliegtuig;
-    private String stoelLabel;
-    private String stoelType;
+
+    private StoelInfo stoelInfo = new StoelInfo();
     private Passagier zittende = null;
     public Stoel(Vliegtuig vliegtuig, String stoelNaam, String stoelType)
     {
         this.vliegtuig = vliegtuig;
-        this.stoelLabel = stoelNaam;
-        this.stoelType = stoelType;
     }
 
     public String getStoelLabel() {
-        return this.stoelLabel;
+        return this.getStoelInfo().getStoelLabel();
     }
 
     public String getStoelType() {
-        return this.stoelType;
+        return this.getStoelInfo().getStoelType();
+    }
+
+    public StoelInfo getStoelInfo() {
+        return stoelInfo;
     }
 
     public Passagier getZittende() {
