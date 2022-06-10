@@ -5,10 +5,12 @@ public class Vliegtuig
     private String vliegtuigNaam;
     private ArrayList<Stoel> stoelen;
 
+    private CheckIn checkin;
     public Vliegtuig(String vliegtuigNaam)
     {
         this.vliegtuigNaam = vliegtuigNaam;
         this.stoelen = new ArrayList<>();
+        this.checkin = null;
     }
 
     public Stoel zoekStoel(int rijNummer, int stoelNummer)
@@ -49,7 +51,12 @@ public class Vliegtuig
         return null;
     }
 
-
+    public void setCheckin(CheckIn checkin) {
+        this.checkin = checkin;
+    }
+    public CheckIn getCheckin() {
+        return checkin;
+    }
     public String getVliegtuigNaam() {
         return vliegtuigNaam;
     }
