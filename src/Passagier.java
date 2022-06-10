@@ -2,98 +2,89 @@ public abstract class Passagier
 {
     private int leeftijd;
     private String passagierNaam;
-
-    private boolean hasMinorPass;
-
-    private boolean geldigePaspoort;
-
-    private int lengte;
-
-    private int breedte;
-
     private CheckIn checkIn;
 
-    private boolean heeftExtraKoffer;
+    private PassagierDimensie dimensies = new PassagierDimensie();
 
-    private boolean heeftMedicijnen;
+    private PassagierPassen passen = new PassagierPassen();
 
-    public Passagier(int leeftijd, String passagierNaam, int lengte, int breedte, boolean geldigePaspoort, boolean hasMinorPass, boolean heeftExtraKoffer, boolean heeftMedicijnen)
+    private PassagierExtraInfo extraInfo = new PassagierExtraInfo();
+
+    public Passagier(int leeftijd, String passagierNaam)
     {
         this.leeftijd = leeftijd;
         this.passagierNaam = passagierNaam;
-        this.lengte = lengte;
-        this.breedte = breedte;
-        this.geldigePaspoort = geldigePaspoort;
-        this.hasMinorPass = hasMinorPass;
-        this.heeftExtraKoffer = heeftExtraKoffer;
-        this.heeftMedicijnen = heeftMedicijnen;
-
-        controlleerPassagier();
     }
 
-    public boolean controlleerPassagier()
+    public void boekEenVlucht(String stoelType, Vliegtuig vliegtuig)
     {
-        System.out.println("je hoort hier niet te zijn");
-        return false;
-    }
-
-    public Boolean getGeldigePaspoort() {
-        return geldigePaspoort;
-    }
-
-    public double getExtraPrijs()
-    {
-        double extra = 0.00;
-
-        if (heeftMedicijnen){extra +=5.00;}
-        if (heeftExtraKoffer){extra += 50.00;}
-
-        return extra;
-    }
-
-    public CheckIn checkIn(CheckIn checkIn)
-    {
-        if (controlleerPassagier())
+        if (controleerGegevens())
         {
-            this.checkIn = checkIn;
-            return checkIn;
+            if (vliegtuig.getCheckin() == null)
+            {
+                System.out.println("Uw gekozen vliegtuig heeft geen checkin geopent");
+            }
+            else
+            {
+                if (vliegtuig.getCheckin().countVrijeStoelen(stoelType) > 0)
+                {
+                    CheckinPassagier c = new CheckinPassagier();
+                    c.setPassagier(this);
+                    c.setStoelType(stoelType);
+                    c.setCheckIn(vliegtuig.getCheckin());
+
+                    if (c.getCheckIn().controleerPassagierEigenschappen(c))
+                    {
+                        System.out.println("Uw eigenschappen voldoen niet aan de stoel die u gekozen heeft");
+                    }
+                }
+                else
+                {
+                    System.out.println("er zijn geen stoelen meer beschikbaar :(");
+                }
+            }
         }
-        return null;
+
     }
 
-    public int getBreedte() {
-        return breedte;
+    public boolean controleerGegevens()
+    {
+        if (this.getLeeftijd() < 18 && !this.getPassen().isHasMinorPass())
+        {
+            return false;
+        }
+
+        return this.getPassen().isGeldigPaspoort();
     }
 
-    public int getLengte() {
-        return lengte;
-    }
-
-    public int getLeeftijd() {
+    public int getLeeftijd()
+    {
         return leeftijd;
     }
 
-    public CheckIn getCheckIn() {
+    public CheckIn getCheckIn()
+    {
         return checkIn;
     }
 
-    public String getPassagierNaam() {
+    public String getPassagierNaam()
+    {
         return passagierNaam;
     }
 
-    public boolean isHasMinorPass() {
-        return hasMinorPass;
+    public PassagierDimensie getDimensies()
+    {
+        return dimensies;
     }
 
-    public boolean isHeeftExtraKoffer() {
-        return heeftExtraKoffer;
+    public PassagierExtraInfo getExtraInfo()
+    {
+        return extraInfo;
     }
 
-    public boolean isHeeftMedicijnen() {
-        return heeftMedicijnen;
+    public PassagierPassen getPassen()
+    {
+        return passen;
     }
 
-    public boolean isGeldigePaspoort() {
-        return geldigePaspoort;
-    }
 }

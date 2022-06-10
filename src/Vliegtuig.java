@@ -39,7 +39,7 @@ public class Vliegtuig
         return null;
     }
 
-    public Stoel zoekPassagier(Passagier passagier)
+    public Stoel zoekStoel(Passagier passagier)
     {
         for (int i = 0; i < this.getStoelen().size(); i++)
         {
