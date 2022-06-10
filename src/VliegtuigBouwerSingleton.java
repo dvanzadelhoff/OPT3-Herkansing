@@ -68,9 +68,13 @@ public class VliegtuigBouwerSingleton
 
                 if (teller < aantalStoelen)
                 {
-                    Stoel stoel = new Stoel(v, ""+rijteller+"."+x, huidigeStoeltype);
-                    v.getStoelen().add(stoel);
+                    StoelInfo stoelInfo = new StoelInfo();
+                    stoelInfo.setStoelLabel(""+rijteller+"."+x);
+                    stoelInfo.setStoelType(huidigeStoeltype);
 
+                    Stoel stoel = new Stoel(v, stoelInfo /*, ""+rijteller+"."+x, huidigeStoeltype */);
+
+                    v.getStoelen().add(stoel);
                 }
                 teller++;
             }
@@ -93,7 +97,11 @@ public class VliegtuigBouwerSingleton
 
             for (int x = 1; x <= 6; x++)
             {
-                Stoel stoel = new Stoel(v, ""+ y + "." + x , huidigeStoeltype);
+                StoelInfo stoelInfo = new StoelInfo();
+                stoelInfo.setStoelLabel(""+ y + "." + x );
+                stoelInfo.setStoelType(huidigeStoeltype);
+
+                Stoel stoel = new Stoel(v, stoelInfo/*""+ y + "." + x , huidigeStoeltype*/);
                 v.getStoelen().add(stoel);
                 aantalStoelen ++;
 
