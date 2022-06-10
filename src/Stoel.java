@@ -4,9 +4,10 @@ public class Stoel
 
     private StoelInfo stoelInfo = new StoelInfo();
     private Passagier zittende = null;
-    public Stoel(Vliegtuig vliegtuig, String stoelNaam, String stoelType)
+    public Stoel(Vliegtuig vliegtuig, StoelInfo info /*, String stoelNaam, String stoelType */)
     {
         this.vliegtuig = vliegtuig;
+        this.stoelInfo = info;
     }
 
     public String getStoelLabel() {
