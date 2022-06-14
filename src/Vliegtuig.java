@@ -43,7 +43,7 @@ public class Vliegtuig
     {
         for (int i = 0; i < this.getStoelen().size(); i++)
         {
-            if (this.getStoelen().get(i).getZittende().getPassagierNaam() == passagier.getPassagierNaam())
+            if (this.getStoelen().get(i).getZittende().getPassagierNaam().equals(passagier.getPassagierNaam()))
             {
                 return this.getStoelen().get(i);
             }

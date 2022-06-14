@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class StaffMenu
@@ -77,16 +78,8 @@ public class StaffMenu
         switch (input) {
             case "j" -> {
                 v.getCheckin().geefStoelAanPassagier(v.getCheckin().getCheckedInPassagiers().get(nummer));
-
-                for (Stoel s : v.getStoelen())
-                {
-                    if (s.getZittende() == null)
-                    {
-                        System.out.println(s.getStoelLabel()+"-");
-                    }
-                    else {System.out.println(s.getStoelLabel()+s.getZittende().getPassagierNaam());}
-                }
-
+                System.out.println("De passagier kan genieten van zijn vakantie");
+                MainMenu();
             }
             case "n" -> {
                 System.out.println("U word terug verwezen naar het menu");
@@ -106,14 +99,37 @@ public class StaffMenu
 
         for (int i = 0; i < passagiers.size(); i++)
         {
-            System.out.println("==========");
-            System.out.println("Nummer: " + (i+1));
-            System.out.println("Naam: "+passagiers.get(i).getPassagier().getPassagierNaam());
-            System.out.println("kloppende tickets: "+passagiers.get(i).getPassagier().controleerGegevens());
-            System.out.println("Gereserveerde Stoel type: " + passagiers.get(i).getStoelType());
-            System.out.println("kloppende dimensies voor stoel: " + passagiers.get(i).getCheckIn().controleerPassagierEigenschappen(passagiers.get(i)));
+            if (showIfStoelGegeven(passagiers.get(i)))
+            {
+                System.out.println("==========");
+                System.out.println("Nummer: " + (i + 1));
+                System.out.println("Naam: " + passagiers.get(i).getPassagier().getPassagierNaam());
+                System.out.println("kloppende tickets: " + passagiers.get(i).getPassagier().controleerGegevens());
+                System.out.println("Gereserveerde Stoel type: " + passagiers.get(i).getStoelType());
+                System.out.println("kloppende dimensies voor stoel: " + passagiers.get(i).getCheckIn().controleerPassagierEigenschappen(passagiers.get(i)));
+            }
         }
         System.out.println("==========");
+    }
+
+    public static boolean showIfStoelGegeven(CheckinPassagier passagier)
+    {
+        int x = 0;
+        ArrayList<Stoel> Stoelen = passagier.getCheckIn().getVoorVliegtuig().getStoelen();
+
+        for (int i = 0; i < passagier.getCheckIn().getVoorVliegtuig().getStoelen().size(); i++)
+        {
+            if(Stoelen.get(i).getZittende() != null)
+            {
+                if (Objects.equals(passagier.getPassagier().getPassagierNaam(), Stoelen.get(i).getZittende().getPassagierNaam()))
+                {
+                    x++;
+                }
+            }
+        }
+
+        return x == 0;
+
     }
 
     public static void VliegtuigAanmaakMenu()

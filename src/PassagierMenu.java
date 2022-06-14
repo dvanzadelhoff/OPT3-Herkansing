@@ -1,5 +1,7 @@
 import org.w3c.dom.ls.LSOutput;
 
+import java.awt.image.renderable.ContextualRenderedImageFactory;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PassagierMenu
@@ -45,7 +47,81 @@ public class PassagierMenu
 
     public static void MainMenu()
     {
+        //Scanner scanner = mainMainMenu.newScanner();
+        Scanner scanner = new Scanner(System.in);
+        showBeschikbareVliegtuigen();
+        System.out.println("In welke Vliegtuig zit u? geef het vluchtnummer aan...");
+        int vliegtuigNummer = scanner.nextInt()-1;
 
+        ArrayList<CheckinPassagier> checkinPassagiers = Main.Bouwer.getVliegtuigen().get(vliegtuigNummer).getCheckin().getCheckedInPassagiers();
+
+        login(checkinPassagiers);
+    }
+
+    public static void login(ArrayList<CheckinPassagier> checkinPassagiers)
+    {
+        Scanner scanner = mainMainMenu.newScanner();
+
+        for (int i = 0; i < checkinPassagiers.size(); i++)
+        {
+            System.out.println( i+1+")" + checkinPassagiers.get(i).getPassagier().getPassagierNaam());
+        }
+
+        System.out.println("Wie bent u? geef het nummer op...");
+        int loginToken = scanner.nextInt()-1;
+
+        profiel(checkinPassagiers.get(loginToken));
+
+    }
+
+    public static void profiel(CheckinPassagier checkinPassagier)
+    {
+        Scanner scanner = mainMainMenu.newScanner();
+
+        Passagier p = checkinPassagier.getPassagier();
+        double ticketkosten = checkinPassagier.BerekenTicketPrijs(checkinPassagier);
+
+        System.out.println("naam: " + p.getPassagierNaam());
+        System.out.println("leeftijd: " + p.getLeeftijd());
+        System.out.println("Totaalprijs incl extra voorzieningen: " + ticketkosten + " euro");
+
+        System.out.println("wat wilt u doen?");
+        System.out.println("1) Vlucht annuleren");
+        System.out.println("2) uitloggen");
+
+        switch (scanner.nextInt())
+        {
+            case 1:
+                BevestigAnnulering(checkinPassagier);
+                break;
+            case 2:
+                mainMainMenu.mainMainMenu();
+                break;
+            default:
+                profiel(checkinPassagier);
+                break;
+        }
+
+    }
+
+    public static void BevestigAnnulering(CheckinPassagier checkinPassagier)
+    {
+        Scanner scanner = mainMainMenu.newScanner();
+        System.out.println("weet u het zeker? (j/n)");
+        switch (scanner.nextLine())
+        {
+            case "j":
+                CheckinPassagier.Annulering(checkinPassagier);
+                System.out.println("gelukt! je krijgt je geld alleen niet terug lol");
+                mainMainMenu.mainMainMenu();
+                break;
+            case "n":
+                profiel(checkinPassagier);
+                break;
+            default:
+                BevestigAnnulering(checkinPassagier);
+                break;
+        }
     }
 
     public static void Reserveer(Passagier p)
