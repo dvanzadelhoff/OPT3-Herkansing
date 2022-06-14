@@ -47,15 +47,7 @@ public abstract class Passagier
 
     }
 
-    public boolean controleerGegevens()
-    {
-        if (this.getLeeftijd() < 18 && !this.getPassen().isHasMinorPass())
-        {
-            return false;
-        }
-
-        return this.getPassen().isGeldigPaspoort();
-    }
+    public abstract boolean controleerGegevens();
 
     public int getLeeftijd()
     {

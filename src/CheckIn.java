@@ -40,10 +40,35 @@ public class CheckIn
 
     public void geefStoelAanPassagier(CheckinPassagier passagier)
     {
-        if (controleerPassagierEigenschappen(passagier))
-        {
+        this.getEersteVrijeStoel(passagier.getStoelType()).setZittende(passagier.getPassagier());
+    }
 
+    public void verwijderPassagierVanVlucht(CheckinPassagier passagier)
+    {
+        for (Stoel s : getVoorVliegtuig().getStoelen())
+        {
+            if (s.getZittende() == passagier.passagier)
+            {
+                s.setZittende(null);
+                System.out.println("Passagier is verwijdert");
+            }
         }
+
+        System.out.println("geen passagier gevonden");
+    }
+
+    public Stoel getEersteVrijeStoel(String stoeltype)
+    {
+        for(int i = 0; i < this.voorVliegtuig.getStoelen().size(); i++)
+        {
+            if (this.voorVliegtuig.getStoelen().get(i).getZittende() == null && this.voorVliegtuig.getStoelen().get(i).getStoelType().equals(stoeltype))
+            {
+                return this.voorVliegtuig.getStoelen().get(i);
+            }
+        }
+
+        return null;
+
     }
 
     public int countVrijeStoelen(String stoelType)
@@ -72,6 +97,16 @@ public class CheckIn
     public double getPrijsNormaleStoel()
     {
         return prijsNormaleStoel;
+    }
+
+    public void vullCheckedInPassagiers(CheckinPassagier passagier)
+    {
+        this.checkedInPassagiers.add(passagier);
+    }
+
+    public void setVoorVliegtuig(Vliegtuig voorVliegtuig)
+    {
+        this.voorVliegtuig = voorVliegtuig;
     }
 
 
