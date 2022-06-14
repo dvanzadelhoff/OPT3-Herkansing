@@ -31,18 +31,15 @@ public class VliegtuigBouwerSingleton
         return v;
     }
 
-    public void maakCustomVliegtuig(String naam /*, int aantalBabyStoelen, int aantalComfortStoelen, int aantalEconomyStoelen, int aantalStoelenInRij */)
+    public void maakCustomVliegtuig(String naam, String indelingInfo /*, int aantalBabyStoelen, int aantalComfortStoelen, int aantalEconomyStoelen, int aantalStoelenInRij */)
     {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Geef het aantal BabyStoelen aan:");
-        int aantalBabyStoelen = scanner.nextInt();
-        System.out.println("Geef het aantal ComfortStoelen aan:");
-        int aantalComfortStoelen = scanner.nextInt();
-        System.out.println("Geef het aantal EconomyStoelen aan:");
-        int aantalEconomyStoelen = scanner.nextInt();
-        System.out.println("Hoeveel Stoelen zitten er in een rij? :");
-        int aantalStoelenInRij = scanner.nextInt();
+        String[] stoelIndelingInfo = indelingInfo.split(",");
+        int aantalBabyStoelen = Integer.parseInt(stoelIndelingInfo[0]);
+        int aantalComfortStoelen = Integer.parseInt(stoelIndelingInfo[1]);
+        int aantalEconomyStoelen = Integer.parseInt(stoelIndelingInfo[2]);
+        int aantalStoelenInRij = Integer.parseInt(stoelIndelingInfo[3]);
 
         Vliegtuig v = bouwLegeVliegtuig(naam);
 
@@ -54,7 +51,7 @@ public class VliegtuigBouwerSingleton
         while(teller <= aantalStoelen)
         {
 
-            for (int x = 1; x < aantalStoelenInRij; x++)
+            for (int x = 1; x <= aantalStoelenInRij; x++)
             {
 
                 if (teller == aantalBabyStoelen)
